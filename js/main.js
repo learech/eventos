@@ -61,6 +61,13 @@ function renderizarItems(){
 
     const tienda = document.getElementById('tienda');
 
+    const filtro = document.getElementById('filtro');
+
+    filtro.innerHTML = `
+        <button class="btn btn-primary" onclick="filtroProtecciones()">Mostrar sólo coderas</button>
+    `
+
+  
 
     PROTECCIONES.forEach((p)=>{
     
@@ -171,6 +178,39 @@ function calcularTotal(){
 
     const t = document.getElementById('total');
 
-    t.innerHTML = `<h5>$${total}</h5>`;
+    t.innerHTML = `<h1>$${total}</h1>`;
+
+}
+
+function filtroProtecciones(){
+
+    const pr = PROTECCIONES.filter(producto => producto.precio === 2200);
+
+    let tienda = document.getElementById('tienda');
+
+    tienda.innerHTML = '';
+
+    pr.forEach((e)=> {
+    
+        let productoHTML = `
+    
+        <div class="col-12 col-md-4 mb-5 d-flex justify-content-center">
+        <div class="card text-dark" style="width: 18rem;">
+            <img class="card-img-top" src="${e.img}" alt="imagen del producto">
+            <div class="card-body">
+                <h5 class="card-title">${e.nombre}</h5>
+                <p class="card-text">${e.desc}</p>
+                <p>${e.precio}€</p>
+                <button class="btn btn-primary" onClick="añadirItemAlCarrito(${e.id})">Comprar</button>
+            </div>
+        </div>
+        </div>
+        `
+
+        tienda.innerHTML += productoHTML;
+
+    })
+
+    simularCarrito();
 
 }
